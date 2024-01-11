@@ -1,0 +1,29 @@
+﻿@page "/"
+@inject NavigationManager _navigationManager;
+<PageTitle>Home</PageTitle>
+<head>
+<link rel="stylesheet" href="/home.css">
+</head>
+<div class="homeContainer">
+<NavMenu></NavMenu>  
+<div class="homebanner">
+    <div class="banner-content">
+<p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, magni inventore dignissimos nihil, distinctio molestias iste laudantium et nam quia repellendus? Aut, laudantium reiciendis reprehenderit animi deserunt temporibus perferendis eos.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, magni inventore dignissimos nihil, distinctio molestias iste laudantium et nam quia repellendus? Aut, laudantium reiciendis reprehenderit animi deserunt temporibus perferendis eos.
+    </p>
+<button class="btn btn-warning" @onclick=goToProductScreen>Get Started</button>
+
+    </div>
+
+</div>
+</div>
+@code
+{
+    public void goToProductScreen()
+    {
+        _navigationManager.NavigateTo("/products");
+    }
+}
+
+

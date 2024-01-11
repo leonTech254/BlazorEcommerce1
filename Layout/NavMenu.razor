@@ -1,0 +1,42 @@
+﻿@inject NavigationManager _navigationManager
+<div>
+    <nav>
+        <ul>
+            @foreach (var route in routesPaths)
+            {
+                <li @onclick="() => gotto(route.Value)">@route.Value</li>
+            }
+        </ul>
+        <ul class="mr-4">
+            <button class="btn btn-primary" @onclick=login>login</button>
+            <button class="btn btn-success" @onclick=register>register</button>
+        </ul>
+    </nav>
+</div>
+
+
+@code {
+    Dictionary<int, string> routesPaths = new Dictionary<int, string>
+    {
+        { 1, "home" },
+        { 2, "about" },
+        {3,"Products"}
+    };
+
+    public void gotto(string routePath)
+    {
+        _navigationManager.NavigateTo("/"+routePath);
+    }
+
+    public void login()
+    {
+        _navigationManager.NavigateTo("/Authentication/login");
+
+    }
+    public void register()
+    {
+        _navigationManager.NavigateTo("/Authentication/reg");
+
+    }
+
+}

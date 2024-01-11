@@ -1,0 +1,23 @@
+@page "/Authentication/{action}"
+@using E_commerceFronted.Components;
+
+<div>
+    <NavMenu></NavMenu>
+</div>
+<div class="pt-4 auth-container" >
+@if (Action == "reg")
+{
+    <Register></Register>
+}
+else if (Action == "login")
+{
+   <Login></Login>
+   
+}
+
+
+</div>
+@code {
+    [Parameter]
+    public string Action { get; set; }
+}

@@ -1,0 +1,68 @@
+@page "/products"
+@using EcommerceFronted.models;
+@using EcommerceFronted.customServer;
+
+<div>
+    <NavMenu></NavMenu>
+    <div class="cards-products-container">
+    @foreach (var product in productsList)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/shoe.jpg" alt="Card image cap">
+            <div class="card-body">
+                <div class="card-text"><b>productname:</b> @product.Name</div>
+                <div class="card-text"><b>Description:</b><br /> @product.Description</div>
+                <div class="card-text"><b>Date Added:</b> @product.dateAdded</div>
+                <div class="card-text"><b>Price:</b> @product.price</div>
+                <div class="btn-container text-center">
+
+                    @* <button type="button" class="btn btn-warning btn-sm" title="Edit"
+                            onclick="openEditModal('@product.Id', '@product.Description', '@product.dateAdded', '@product.price')">
+                    <span class="material-icons">edit</span>
+                    
+                    </button>
+                     <button class="btn btn-danger btn-sm">delete</button> *@
+
+                     <button class="btn btn-success btn-sm btn-block"  @onclick="()=>AddToCart(product.Id)">
+                        add to cart
+                        <span class="material-icons">shopping_cart</span>
+                        </button>
+
+                    @* <!-- Edit Button -->
+                    <button type="button" class="btn btn-warning btn-sm" title="Edit"
+                            onclick="openEditModal('@product.Id', '@product.Description', '@product.dateAdded', '@product.price')">
+                        <span class="material-icons">edit</span>
+                    </button>
+
+                    <!-- Delete Button -->
+                   
+<span class="material-symbols-outlined">
+
+</span>
+                    <!-- Add to Basket Button -->
+                    <a href="@($"/addToBasket?productId={product.Id}&description={product.Description}&price={product.price}")"
+                       class="btn btn-success btn-sm ml-2" title="Add to Basket">
+                        <span class="material-icons">add_shopping_cart</span>
+                    </a> *@
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+
+</div>
+
+@code
+{
+    List<Products> productsList = ProductService.getAllproducts();
+
+    void openEditModal(string id, string description, string dateAdded, string price)
+    {
+       
+    }
+
+    public void AddToCart(int productId)
+    {
+        Products product=ProductService.getProductByID(productId);
+    }
+}
