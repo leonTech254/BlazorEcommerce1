@@ -50,7 +50,6 @@ namespace EcommerceFronted.customServer
 
              };
                
-
                 Console.WriteLine(loginResponse);
 				Console.WriteLine("Successfully sent the POST request");
                 return loginResponse;   

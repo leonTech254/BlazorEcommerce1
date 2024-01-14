@@ -19,6 +19,7 @@
         <label for="password">Password:</label>
         <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.password" />
     </div>
+  
 
     <button type="submit" class="btn btn-success mt-2">Login</button>
 </EditForm>
@@ -46,5 +47,7 @@ private async Task StoreTokenInLocalStorage(String token)
     {
         await _JSRuntime.InvokeVoidAsync("localStorageFunctions.setItem", "token", token);
     }
+
+   
 
 }

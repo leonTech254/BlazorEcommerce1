@@ -10,6 +10,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddScoped<AuthApiService>();
-// builder.Services.AddScoped<ProductData>();
+builder.Services.AddScoped<ProductServices>();
+ builder.Services.AddScoped<CartAPIService>();
 
 await builder.Build().RunAsync();

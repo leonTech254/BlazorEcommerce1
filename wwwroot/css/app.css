@@ -9,7 +9,10 @@ body
 {
     overflow-x: none;
 }
-
+.bodyContainer
+{
+    background-color: red;
+}
 
 
 /* navigation bar sytles */
@@ -87,17 +90,18 @@ color: white;
 .btn-container
 {
     position: relative;
-    height: 4rem;
+    display: flex;
+    justify-content: space-around;
 }
 .cards-products-container .card .btn
 {
-    position: absolute;
+    /* position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     
 }
 .auth-container

@@ -1,0 +1,81 @@
+@using EcommerceFronted.models
+@inject ProductServices _productService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime _JSRuntime
+@inject CartAPIService _cartAPIService
+
+<div>
+    <div class="cards-products-container">
+        @foreach (var product in productsList)
+        {
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="./images/shoe.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <div class="card-text"><b>productname:</b> @product.Name</div>
+                    <div class="card-text"><b>Description:</b><br /> @product.Description</div>
+                    <div class="card-text"><b>Date Added:</b> @product.dateAdded</div>
+                    <div class="card-text"><b>Price:</b> @product.price</div>
+                    <div class="btn-container text-center">
+                        @if (NavigationManager.ToBaseRelativePath(NavigationManager.Uri) == "admin")
+                        {
+                            <button class="btn btn-danger btn-sm btn-block" @onclick="()=>DeleteProduct(product)">delete</button>
+                            <button class="btn btn-sm btn-warning">update</button>
+                        }
+                        <button class="btn btn-success btn-sm btn-block" @onclick="()=>AddToCart(product.Id)">
+                            add to cart
+                            <span class="material-icons">shopping_cart</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    List<Products> productsList;
+    String CurrentUrl;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUrl = NavigationManager.Uri;
+        await GetAllProducts();
+    }
+
+    public async Task GetAllProducts()
+    {
+        productsList = await _productService.GetAllProduct();
+    }
+
+    void openEditModal(string id, string description, string dateAdded, string price)
+    {
+        // Your edit logic here
+    }
+
+    public async Task AddToCart(int productId)
+    {
+        Products product = await _productService.GetProductById(productId);
+        String token = await GetTokenFromLocalStorage();
+
+        if (!string.IsNullOrEmpty(token))
+        {
+            await _cartAPIService.AddToCart(productId, 1, token);
+        }
+        else
+        {
+            // Handle the case where the token is not available
+            Console.WriteLine("Token not available");
+        }
+    }
+
+    public async void DeleteProduct(Products product)
+    {
+        await _productService.DeleteProduct(product);
+        await GetAllProducts();
+    }
+
+    private async Task<string> GetTokenFromLocalStorage()
+    {
+        return await _JSRuntime.InvokeAsync<string>("localStorageFunctions.getItem", "token");
+    }
+}
